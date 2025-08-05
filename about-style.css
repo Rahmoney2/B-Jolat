@@ -30,7 +30,7 @@ body {
 }
 
 .about-header {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('about-banner.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('./services.jpg') center/cover no-repeat;
   padding: 120px 0;
 }
 

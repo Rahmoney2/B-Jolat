@@ -30,7 +30,7 @@ body {
 }
 
 .blog-header {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('blog-banner.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('./safety.jpg') center/cover no-repeat;
   padding: 120px 0;
 }
 

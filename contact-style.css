@@ -29,10 +29,9 @@ body {
 }
 
 .contact-header {
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('contact-banner.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./contact.jpg') center/cover no-repeat;
   padding: 100px 0;
 }
-
 .footer {
     background-color: var(--dark-color);
     color: white;
