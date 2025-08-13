@@ -222,4 +222,9 @@
             .logo-subtext {
                 font-size: 1rem;
             }
+
+            .ser {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
         }
