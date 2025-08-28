@@ -302,71 +302,54 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="text-center section-title">Contact Us</h2>
-            <div class="row">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <h4>Get in Touch</h4>
-                    <p>Have questions about our products or services? Reach out to our team for more information.</p>
-                    
-                    <div class="contact-info">
-                        <div class="d-flex mb-3">
-                            <i class="contact-icon fas fa-map-marker-alt"></i>
-                            <div>
-                                <h6>Headquarters</h6>
-                                <p>km 65, Lagos Abeokuta ExpressWay, Ewekoro Local<br>Government, Itori, Ogun State, Nigeria</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="contact-icon fas fa-phone-alt"></i>
-                            <div>
-                                <h6>Phone</h6>
-                                <p>(+234) 805 591 6658</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="contact-icon fas fa-envelope"></i>
-                            <div>
-                                <h6>Email</h6>
-                                <p>jolatv684@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="contact-icon fas fa-clock"></i>
-                            <div>
-                                <h6>Business Hours</h6>
-                                <p>Mon - Fri: 5:30AM - 9:30PM<br>Sat & Sun: 7:00AM - 8:00PM</p>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container">
+    <h2 class="text-center section-title">Contact Us</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h4>Get in Touch</h4>
+        <p>Have questions about our products or services? Reach out to our team for more information.</p>
+        
+        <div class="contact-info">
+          <div class="d-flex mb-3">
+            <i class="contact-icon fas fa-map-marker-alt"></i>
+            <div>
+              <h6>Headquarters</h6>
+              <p>km 65, Lagos Abeokuta ExpressWay, Ewekoro Local<br>Government, Itori, Ogun State, Nigeria</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+            <i class="contact-icon fas fa-phone-alt"></i>
+            <div>
+              <h6>Phone</h6>
+              <p>(+234) 805 591 6658</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+            <i class="contact-icon fas fa-envelope"></i>
+            <div>
+              <h6>Email</h6>
+              <p>jolatv684@gmail.com</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+                <i class="contact-icon fas fa-clock"></i>
+                <div>
+                <h6>Business Hours</h6>
+                <p>Mon - Fri: 5:30AM - 9:30PM<br>Sat & Sun: 7:00AM - 8:00PM</p>
                 </div>
-                <div class="col-lg-7">
-                    <form id="contactForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
+           </div>
+            <!-- Contact Button -->
+            <div class="mt-4">
+            <a href="mailto:jolatv684@gmail.com" class="btn btn-primary btn-lg">
+                <i class="fas fa-paper-plane me-2"></i> Contact Us
+            </a>
             </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -410,11 +393,20 @@
                     <div class="footer-links">
                         <h5>Newsletter</h5>
                         <p>Subscribe to our newsletter for the latest updates and offers.</p>
-                        <form class="mt-3">
+                        <form class="mt-3" action="https://formspree.io/f/mqadeaky" method="POST" id="newsletterForm">
                             <div class="input-group mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
-                                <button class="btn btn-primary" type="button">Subscribe</button>
+                              <input 
+                                type="email" 
+                                class="form-control" 
+                                name="newsletter_email" 
+                                placeholder="Your Email" 
+                                aria-label="Your Email" 
+                                required>
+                              <button class="btn btn-primary" type="submit">Subscribe</button>
                             </div>
+
+                            <!-- Alert Message -->
+                            <div id="newsletterAlert" class="alert mt-2 d-none" role="alert"></div>
                         </form>
                     </div>
                 </div>
@@ -493,5 +485,69 @@
         // carousel auto slide
         var myCarousel = document.querySelector('#petrolStationCarousel');
     </script>
+
+    <!-- Script to handle AJAX + Feedback -->
+  <script>
+        const form = document.getElementById('contactForm');
+        const alertBox = document.getElementById('formAlert');
+
+        form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        alertBox.classList.remove('d-none', 'alert-success', 'alert-danger');
+        alertBox.textContent = "Sending message...";
+
+        try {
+            const response = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = "Message sent successfully!";
+            form.reset();
+            } else {
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = "Oops! Something went wrong. Please try again.";
+            }
+        } catch (error) {
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = "Network error. Please try later.";
+        }
+        });
+  </script>
+
+  <script>
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterAlert = document.getElementById('newsletterAlert');
+
+        newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        newsletterAlert.classList.remove('d-none', 'alert-success', 'alert-danger');
+        newsletterAlert.textContent = "Subscribing...";
+
+        try {
+            const response = await fetch(newsletterForm.action, {
+            method: "POST",
+            body: new FormData(newsletterForm),
+            headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+            newsletterAlert.classList.add('alert-success');
+            newsletterAlert.textContent = "Thank you for subscribing!";
+            newsletterForm.reset();
+            } else {
+            newsletterAlert.classList.add('alert-danger');
+            newsletterAlert.textContent = "Oops! Something went wrong. Try again.";
+            }
+        } catch (error) {
+            newsletterAlert.classList.add('alert-danger');
+            newsletterAlert.textContent = "Network error. Please try later.";
+        }
+        });
+  </script>
+
 </body>
 </html>
