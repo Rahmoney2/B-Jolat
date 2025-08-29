@@ -225,12 +225,21 @@
                     <div class="footer-links">
                         <h5>Newsletter</h5>
                         <p>Subscribe to our newsletter for the latest updates and offers.</p>
-                        <form class="mt-3">
+                        <form class="mt-3" action="https://formspree.io/f/mqadeaky" method="POST" id="newsletterForm">
                             <div class="input-group mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
-                                <button class="btn btn-primary" type="button">Subscribe</button>
+                              <input 
+                                type="email" 
+                                class="form-control" 
+                                name="newsletter_email" 
+                                placeholder="Your Email" 
+                                aria-label="Your Email" 
+                                required>
+                              <button class="btn btn-primary" type="submit">Subscribe</button>
                             </div>
-                        </form>
+
+                            <!-- Alert Message -->
+                            <div id="newsletterAlert" class="alert mt-2 d-none" role="alert"></div>
+                          </form>
                     </div>
                 </div>
             </div>
@@ -241,5 +250,37 @@
     </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+   <script>
+      const newsletterForm = document.getElementById('newsletterForm');
+      const newsletterAlert = document.getElementById('newsletterAlert');
+
+      newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        newsletterAlert.classList.remove('d-none', 'alert-success', 'alert-danger');
+        newsletterAlert.textContent = "Subscribing...";
+
+        try {
+          const response = await fetch(newsletterForm.action, {
+          method: "POST",
+          body: new FormData(newsletterForm),
+          headers: { 'Accept': 'application/json' }
+         });
+
+          if (response.ok) {
+            newsletterAlert.classList.add('alert-success');
+            newsletterAlert.textContent = "Thank you for subscribing!";
+            newsletterForm.reset();
+          } else {
+            newsletterAlert.classList.add('alert-danger');
+            newsletterAlert.textContent = "Oops! Something went wrong. Try again.";
+          }
+        } 
+          catch (error) {
+            newsletterAlert.classList.add('alert-danger');
+            newsletterAlert.textContent = "Network error. Please try later.";
+          }
+      });
+    </script>
 </body>
 </html>
